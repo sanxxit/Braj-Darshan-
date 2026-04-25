@@ -30,7 +30,7 @@ export default async function MapPage() {
   const { temples, hotels } = await fetchMapData();
 
   return (
-    <div className="flex flex-col" style={{ height: '100dvh' }}>
+    <div className="flex flex-col" style={{ height: 'calc(100dvh - 4rem)' }}>
       {/* Compact header */}
       <div className="shrink-0 px-4 sm:px-6 pt-4 pb-3 flex items-center justify-between border-b border-gold/8">
         <div>
