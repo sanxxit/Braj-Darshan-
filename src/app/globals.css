@@ -1,26 +1,174 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ─── Braj Darshan Design Tokens ─────────────────────────────────────────── */
+@theme {
+  /* Core palette */
+  --color-braj-dark:    #111111;
+  --color-braj-dark-2:  #1A1A1A;
+  --color-braj-dark-3:  #222222;
+  --color-braj-dark-4:  #2A2A2A;
+
+  --color-bhagwa:       #FF671F;
+  --color-bhagwa-light: #FF8C52;
+  --color-bhagwa-dark:  #CC4A0D;
+  --color-bhagwa-muted: #FF671F26;
+
+  --color-gold:         #D4AF37;
+  --color-gold-light:   #F0D060;
+  --color-gold-dark:    #A8860C;
+  --color-gold-muted:   #D4AF3726;
+
+  --color-cream:        #FFF8E7;
+  --color-cream-dim:    #E8DCC8;
+  --color-cream-muted:  #FFF8E726;
+
+  --color-lotus:        #C85A8A;
+  --color-peacock:      #1B6CA8;
+  --color-yamuna:       #2E86C1;
+
+  /* Typography */
+  --font-sans:   var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif:  var(--font-crimson), Georgia, serif;
+
+  /* Shadows */
+  --shadow-bhagwa:    0 0 20px #FF671F4D;
+  --shadow-bhagwa-lg: 0 0 40px #FF671F66;
+  --shadow-gold:      0 0 20px #D4AF374D;
+  --shadow-gold-lg:   0 0 40px #D4AF3766;
+  --shadow-card:      0 4px 24px #00000066;
+  --shadow-card-hover: 0 8px 40px #00000099;
+
+  /* Animations */
+  --animate-float:       float 3s ease-in-out infinite;
+  --animate-pulse-glow:  pulse-glow 2s ease-in-out infinite;
+  --animate-spin-slow:   spin 8s linear infinite;
+  --animate-shimmer:     shimmer 2.4s linear infinite;
+  --animate-fade-in:     fade-in 0.6s ease-out forwards;
+  --animate-slide-up:    slide-up 0.5s ease-out forwards;
+  --animate-mandala:     spin 20s linear infinite;
+  --animate-flute-glow:  flute-glow 3s ease-in-out infinite;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ─── Keyframes ───────────────────────────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes flute-glow {
+  0%, 100% { filter: drop-shadow(0 0 8px #FF671F99); }
+  50%       { filter: drop-shadow(0 0 20px #D4AF37CC); }
+}
+
+/* ─── Base Reset & Globals ────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #111111;
+  color: #FFF8E7;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100dvh;
+}
+
+/* ─── Scrollbar ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #1A1A1A;
+}
+::-webkit-scrollbar-thumb {
+  background: #FF671F66;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FF671F;
+}
+
+/* ─── Selection ───────────────────────────────────────────────────────────── */
+::selection {
+  background: #FF671F33;
+  color: #FFF8E7;
+}
+
+/* ─── Utility Layers ──────────────────────────────────────────────────────── */
+@layer utilities {
+  .text-gradient-bhagwa {
+    background: linear-gradient(135deg, #FF671F, #D4AF37);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #D4AF37, #F0D060, #D4AF37);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bg-mandala {
+    background-image:
+      radial-gradient(ellipse at center, #FF671F0A 0%, transparent 70%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='50' fill='none' stroke='%23FF671F' stroke-width='0.3' opacity='0.15'/%3E%3Ccircle cx='60' cy='60' r='35' fill='none' stroke='%23D4AF37' stroke-width='0.3' opacity='0.1'/%3E%3Ccircle cx='60' cy='60' r='20' fill='none' stroke='%23FF671F' stroke-width='0.3' opacity='0.12'/%3E%3C/svg%3E");
+    background-size: auto, 120px 120px;
+  }
+
+  .card-glass {
+    background: linear-gradient(135deg, #1A1A1A, #222222);
+    border: 1px solid #D4AF3726;
+    backdrop-filter: blur(12px);
+  }
+
+  .card-glass:hover {
+    border-color: #FF671F4D;
+    box-shadow: 0 8px 40px #00000099, 0 0 20px #FF671F1A;
+  }
+
+  .border-bhagwa-glow {
+    border-color: #FF671F;
+    box-shadow: 0 0 10px #FF671F66;
+  }
+
+  .shimmer-bg {
+    background: linear-gradient(
+      90deg,
+      #1A1A1A 25%,
+      #2A2A2A 50%,
+      #1A1A1A 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2.4s linear infinite;
+  }
 }
